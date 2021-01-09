@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>涂鸦</title>
+  <style>
+    body {
+      text-align: center;
+      padding-top: 20px;
+    }
+    canvas {
+      box-shadow: 0 0 10px #333;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas" width="387" height="387">当前浏览器版本不支持canvas，请更新！</canvas>
+  <script>
+    const canvas = document.getElementById('canvas');
+    if (canvas.getContext) {
+      const ctx = canvas.getContext('2d');
+      console.log('画笔: ', ctx);
+  
+      canvas.onmousedown = function (e) {
+        const ev = e || window.event;
+        const x = e.clientX - canvas.offsetLeft;
+        const y = e.clientY - canvas.offsetTop;
+        ctx.strokeStyle = '#5fc278';
+        ctx.lineWidth = 10;
+        ctx.lineCap = 'round';
+        ctx.beginPath();
+        ctx.moveTo(x, y);
+
+        canvas.onmousemove = function (e) {
+          const ev = e || window.event;
+          const x = e.clientX - canvas.offsetLeft;
+          const y = e.clientY - canvas.offsetTop;
+          ctx.lineTo(x, y);
+          ctx.stroke();
+
+          canvas.onmouseup = function (e) {
+            canvas.onmousemove = '';
+          }
+        }
+      }
+    }
+  </script>
+</body>
+</html> 
