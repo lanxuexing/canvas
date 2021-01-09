@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>刮刮乐</title>
+  <style>
+    body {
+      text-align: center;
+      padding-top: 20px;
+    }
+    canvas {
+      position: absolute;
+      left: 50%;
+      margin-left: -193.5px;
+      box-shadow: 0 0 10px #333;
+    }
+  </style>
+</head>
+<body>
+  <img src="https://avatars0.githubusercontent.com/u/20652750?s=460&u=f551621c2f65663d6177cb3a7575c8e9eb1b0e47&v=4" alt="">
+  <canvas id="canvas" width="387" height="387">当前浏览器版本不支持canvas，请更新！</canvas>
+  <script>
+    const canvas = document.getElementById('canvas');
+    if (canvas.getContext) {
+      const ctx = canvas.getContext('2d');
+      console.log('画笔: ', ctx);
+  
+      // 盖住图片
+      ctx.beginPath();
+      ctx.fillStyle = '#ccc';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // globalCompositeOperation API: https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/globalCompositeOperation
+      ctx.globalCompositeOperation = 'destination-out';
+      ctx.lineWidth = 20;
+      ctx.lineCap = 'round';
+
+      canvas.onmousedown = function (e) {
+        const ev = e || window.event;
+        const x = e.clientX - canvas.offsetLeft;
+        const y = e.clientY - canvas.offsetTop;
+        ctx.moveTo(x, y);
+        canvas.onmousemove = function (e) {
+          const ev = e || window.event;
+          const x = e.clientX - canvas.offsetLeft;
+          const y = e.clientY - canvas.offsetTop;
+          ctx.lineTo(x, y);
+          ctx.stroke();
+        }
+        canvas.onmouseup = function (e) {
+          canvas.onmousemove = '';
+        }
+      }
+    }
+  </script>
+</body>
+</html> 
