@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body {
+      text-align: center;
+      padding-top: 20px;
+    }
+    canvas {
+      box-shadow: 0 0 10px #333;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas" width="600" height="400">当前浏览器版本不支持canvas，请更新！</canvas>
+  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    console.log('画笔: ', ctx);
+
+    // 填充矩形
+    ctx.fillStyle = 'rgb(200, 0, 0)'; // 设置画笔的颜色
+    ctx.fillRect(10, 10, 100, 50); // 绘制矩形
+    ctx.fillStyle = 'rgba(0, 0, 200, .5)'; // 设置画笔的颜色
+    ctx.fillRect(30, 30, 100, 50); // 绘制矩形
+
+    // 矩形线框
+    ctx.strokeStyle = 'rgba(0, 200, 200, .5)';
+    ctx.strokeRect(40, 40 , 100, 50);
+
+    // 绘制三角形填充
+    ctx.beginPath();
+    ctx.moveTo(200, 200);
+    ctx.lineTo(300, 300);
+    ctx.lineTo(100, 300);
+    ctx.fill();
+
+    // 绘制三角形线框
+    ctx.beginPath();
+    ctx.moveTo(400, 100);
+    ctx.lineTo(500, 200);
+    ctx.lineTo(300, 200);
+    ctx.closePath();
+    ctx.stroke();
+  </script>
+</body>
+</html> 
