@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>圆</title>
+  <style>
+    body {
+      text-align: center;
+      padding-top: 20px;
+    }
+    canvas {
+      box-shadow: 0 0 10px #333;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas" width="600" height="400">当前浏览器版本不支持canvas，请更新！</canvas>
+  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    console.log('画笔: ', ctx);
+
+    ctx.strokeStyle = 'origin'; // 设置画笔的颜色
+    ctx.lineWidth = 10; // 设置线宽
+
+    // 画圆
+    ctx.arc(300, 200, 100, 0, Math.PI / 2);
+    ctx.stroke();
+  </script>
+</body>
+</html> 
