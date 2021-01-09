@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>圆形头像</title>
+  <style>
+    body {
+      text-align: center;
+      padding-top: 20px;
+    }
+    canvas {
+      box-shadow: 0 0 10px #333;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas" width="387" height="387">当前浏览器版本不支持canvas，请更新！</canvas>
+  <script>
+    const canvas = document.getElementById('canvas');
+    if (canvas.getContext) {
+      const ctx = canvas.getContext('2d');
+      console.log('画笔: ', ctx);
+  
+      const img = new Image();
+      img.onload = function (e) {
+        ctx.beginPath();
+        ctx.arc(canvas.width / 2, canvas.height / 2, Math.min(canvas.width / 2, canvas.height / 2) - 20, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.clip();
+        ctx.drawImage(this, 0, 0);
+      }
+      img.src = 'https://avatars0.githubusercontent.com/u/20652750?s=460&u=f551621c2f65663d6177cb3a7575c8e9eb1b0e47&v=4';
+    }
+  </script>
+</body>
+</html> 
