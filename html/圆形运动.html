@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>圆形运动</title>
+  <style>
+    body {
+      margin-top: 20px;
+      text-align: center;
+    }
+    canvas {
+      box-shadow: 0 0 10px #333;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas" width="600" height="400"></canvas>
+  <script>
+    const canvas = document.getElementById('canvas');
+    if (canvas.getContext) {
+      const ctx = canvas.getContext('2d');
+
+      function circle (x, y, r, speedX, speedY) {
+        // 设置属性
+        this.x = x;
+        this.y = y;
+        this.r = r;
+        this.speedX = speedX;
+        this.speedY = speedY;
+        // 设置方法
+        this.draw = function () {
+          ctx.beginPath();
+          ctx.fillStyle = '#5fc278';
+          ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        this.move = function () {
+          this.x += this.speedX;
+          if (this.x < this.r || this.x > canvas.width - this.r) {
+            this.speedX *= -1;
+          }
+          this.y += this.speedY;
+          if (this.y < this.r || this.y > canvas.height - this.r) {
+            this.speedY *= -1;
+          }
+        }
+      }
+
+      const cir = new circle(20, 20, 20, 2, 2);
+
+      function start () {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        cir.draw();
+        cir.move();
+        window.requestAnimationFrame(start);
+      }
+
+      start();
+    }
+  </script>
+</body>
+</html>
