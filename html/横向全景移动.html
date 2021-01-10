@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>横行全景移动</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      margin-top: 20px;
+      text-align: center;
+    }
+    canvas {
+      box-shadow: 0, 0, 10px #333;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas" width="1600" height="585"></canvas>
+  <script>
+    const canvas = document.getElementById('canvas');
+    if (canvas.getContext) {
+      const ctx = canvas.getContext('2d');
+      let x = 0;
+
+      function bgMove () {
+        ctx.save(); // 记录当前的左偏移量，防止不断的累加变得越来越快
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.translate(-x, 0); // 向左移动
+        ctx.drawImage(img, 0, 0);
+        ctx.drawImage(img, canvas.width, 0); // 在最后再画一张一摸一样的图片，做到无缝对接
+        x++;
+        if (x >= canvas.width) {
+          x = 0;
+        }
+        ctx.restore(); // 取出存储的偏移状态
+        window.requestAnimationFrame(bgMove);
+      }
+
+      const img = new Image();
+      img.onload = function () {
+        bgMove();
+      }
+      img.src = 'https://tva1.sinaimg.cn/large/008eGmZEly1gmizzhknntj318g0g9wjk.jpg'
+    }
+  </script>
+</body>
+</html>
