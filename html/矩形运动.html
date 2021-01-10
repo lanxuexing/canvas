@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>矩形运动</title>
+  <style>
+    body {
+      margin-top: 20px;
+      text-align: center;
+    }
+    canvas {
+      box-shadow: 0 0 10px #333;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas" width="600" height="400"></canvas>
+  <script>
+    const canvas = document.getElementById('canvas');
+    if (canvas.getContext) {
+      const ctx = canvas.getContext('2d');
+      // steps1：绘制图像
+      let x = 0, y = 0, width = 100, height = 100;
+      ctx.fillStyle = '#5fc278';
+      ctx.fillRect(x, y, width, height);
+      let speedX = 2, speedY = 2;
+      function move () {
+        // steps2：清除图像
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        // steps3：更新位置
+        x += speedX;
+        if (x < 0 || x > canvas.width - width) { // 最左侧 || 最右侧
+          speedX *= -1;
+        }
+        y += speedY;
+        if (y < 0 || y > canvas.height - height) { // 最左侧 || 最右侧
+          speedY *= -1;
+        }
+        // steps4：绘制图像
+        ctx.fillRect(x, y, width, height);
+        window.requestAnimationFrame(move); // 请求关键帧动画
+      }
+      move();
+    }
+  </script>
+</body>
+</html>
