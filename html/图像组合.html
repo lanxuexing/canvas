@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>图形组合</title>
+  <style>
+    body {
+      margin-top: 20px;
+      text-align: center;
+    }
+    canvas {
+      box-shadow: 0 0 10px #000;
+      margin: 10px;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas1" width="300" height="300"></canvas>
+  <canvas id="canvas2" width="300" height="300"></canvas>
+  <canvas id="canvas3" width="300" height="300"></canvas>
+  <canvas id="canvas4" width="300" height="300"></canvas>
+  <script>
+    const canvas1 = document.getElementById('canvas1');
+    if (canvas1.getContext) {
+      const ctx = canvas1.getContext('2d');
+      console.log('画笔1: ', ctx);
+      ctx.beginPath();
+      ctx.fillStyle = 'red';
+      ctx.fillRect(50, 50, 100, 100);
+
+      // 图像组合
+      ctx.globalCompositeOperation = 'source-over'
+      ctx.fillStyle = '#64b486';
+      ctx.arc(150, 150, 50, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+
+    const canvas2 = document.getElementById('canvas2');
+    if (canvas2.getContext) {
+      const ctx = canvas2.getContext('2d');
+      console.log('画笔2: ', ctx);
+      ctx.beginPath();
+      ctx.fillStyle = 'red';
+      ctx.fillRect(50, 50, 100, 100);
+
+      // 图像组合
+      ctx.globalCompositeOperation = 'source-atop'
+      ctx.fillStyle = '#64b486';
+      ctx.arc(150, 150, 50, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+
+    const canvas3 = document.getElementById('canvas3');
+    if (canvas3.getContext) {
+      const ctx = canvas3.getContext('2d');
+      console.log('画笔3: ', ctx);
+      ctx.beginPath();
+      ctx.fillStyle = 'red';
+      ctx.fillRect(50, 50, 100, 100);
+
+      // 图像组合
+      ctx.globalCompositeOperation = 'source-in'
+      ctx.fillStyle = '#64b486';
+      ctx.arc(150, 150, 50, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+
+    const canvas4 = document.getElementById('canvas4');
+    if (canvas4.getContext) {
+      const ctx = canvas4.getContext('2d');
+      console.log('画笔4: ', ctx);
+      ctx.beginPath();
+      ctx.fillStyle = 'red';
+      ctx.fillRect(50, 50, 100, 100);
+
+      // 图像组合
+      ctx.globalCompositeOperation = 'source-out'
+      ctx.fillStyle = '#64b486';
+      ctx.arc(150, 150, 50, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  </script>
+</body>
+</html>
