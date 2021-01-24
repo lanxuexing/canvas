@@ -76,6 +76,7 @@
         const r2 = ball2.r;
         const dx = x1 - x2;
         const dy = y1 - y2;
+        // 圆心距公式: o1 (x, y) r  o2(m, n) r 则两圆心之间的距离满足：(x - m)^2 + (y - n)^2 = r * r;
         const distance = Math.sqrt(dx * dx + dy * dy);
         if (distance < r1 + r2) {
           return true;
