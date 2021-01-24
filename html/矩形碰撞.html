@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>矩形碰撞</title>
+  <style>
+    body {
+      text-align: center;
+      padding-top: 20px;
+    }
+    canvas {
+      box-shadow: 0 0 10px #333;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas" width="600" height="400"></canvas>
+  <script>
+    const canvas = document.getElementById('canvas');
+    if (canvas.getContext) {
+      const ctx = canvas.getContext('2d');
+
+      function Rect(x, y, width, height, color, speed) {
+        this.x = x;
+        this.y = y;
+        this.color = color;
+        this.width = width;
+        this.height = height;
+        this.speed = speed;
+      }
+
+      Rect.prototype.draw = function () {
+        ctx.beginPath();
+        ctx.fillStyle = this.color;
+        ctx.fillRect(this.x, this.y, this.width, this.height);
+        ctx.closePath();
+      }
+
+      Rect.prototype.move = function () {
+        this.x += this.speed;
+        if (this.x >= canvas.width - this.width) {
+          this.speed *= -1;
+        } else if (this.x < 0) {
+          this.speed *= -1;
+        }
+      }
+
+      const rect1 = new Rect(0, 100, 100, 100, 'red', 2);
+      const rect2 = new Rect(500, 100, 100, 100, 'green', -3);
+      rect1.draw();
+      rect2.draw();
+
+      function animate() {
+        // 清除画布
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        rect1.draw();
+        rect2.draw();
+        rect1.move();
+        rect2.move();
+        if (isRectHit(rect1, rect2)) {
+          rect1.speed *= -1;
+          rect2.speed *= -1;
+        }
+        // 帧动画
+        window.requestAnimationFrame(animate);
+      }
+
+      animate();
+
+      function isRectHit (rect1, rect2) {
+        // 获取矩形的最小x和最大x
+        const min1 = rect1.x;
+        const min2 = rect2.x;
+        const max1 = rect1.x + rect1.width;
+        const max2 = rect2.x + rect2.width;
+        const min3 = Math.max(min1, min2);
+        const max3 = Math.min(max1, max2);
+        if (min3 < max3) {
+          return true;
+        } else {
+          return false;
+        }
+      }
+    }
+  </script>
+</body>
+</html>
